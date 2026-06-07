@@ -124,6 +124,7 @@ def run(query: str) -> dict:
     }
     langfuse_handler = CallbackHandler()
     final = GRAPH.invoke(init, config={"callbacks": [langfuse_handler]})
+    langfuse_handler.flush()
     return {
         "answer": final["answer"],
         "verified": final["verified"],
