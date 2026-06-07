@@ -13,6 +13,7 @@ import os
 
 from langchain_anthropic import ChatAnthropic
 from langgraph.graph import StateGraph, END
+from langfuse.callback import CallbackHandler
 
 from .state import AgentState
 from .tools import TOOLS, TOOL_SPECS
@@ -121,7 +122,8 @@ def run(query: str) -> dict:
         "answer": "", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0,
         "step_count": 0, "verified": False, "reject_reason": "",
     }
-    final = GRAPH.invoke(init)
+    langfuse_handler = CallbackHandler()
+    final = GRAPH.invoke(init, config={"callbacks": [langfuse_handler]})
     return {
         "answer": final["answer"],
         "verified": final["verified"],
