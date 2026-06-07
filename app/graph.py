@@ -13,7 +13,7 @@ import os
 
 from langchain_anthropic import ChatAnthropic
 from langgraph.graph import StateGraph, END
-from langfuse.callback import CallbackHandler
+from langfuse.langchain import CallbackHandler
 
 from .state import AgentState
 from .tools import TOOLS, TOOL_SPECS
