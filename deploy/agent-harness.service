@@ -1,0 +1,26 @@
+# Copy to /etc/systemd/system/agent-harness.service on the VM, then:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now agent-harness
+#   sudo systemctl status agent-harness
+#   journalctl -u agent-harness -f   # live logs
+
+[Unit]
+Description=Agent Harness (LangGraph + FastAPI)
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/agent-harness
+Environment="ANTHROPIC_API_KEY=replace-me"
+Environment="AGENT_MODEL=claude-sonnet-4-5"
+# Uncomment to enable Langfuse tracing on the VM:
+# Environment="LANGFUSE_PUBLIC_KEY=pk-..."
+# Environment="LANGFUSE_SECRET_KEY=sk-..."
+# Environment="LANGFUSE_HOST=https://cloud.langfuse.com"
+ExecStart=/home/ubuntu/agent-harness/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
