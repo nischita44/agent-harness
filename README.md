@@ -78,18 +78,3 @@ gcloud run deploy agent-harness --source . \
   --region us-central1 --allow-unauthenticated \
   --set-env-vars ANTHROPIC_API_KEY=sk-...
 ```
-
-## The discipline (read this)
-
-- **Commit every day.** Small is fine. A skipped day means you researched
-  instead of built. That is the loop. Don't.
-- **Deployed > local.** A green checkmark in Langfuse beats a clean notebook.
-- Weeks 3–4: inject failures (tool timeouts, bad tool args, mid-chain crashes),
-  then make this resilient. That write-up is your differentiator.
-
-## Roadmap
-
-- [ ] Week 1: both URLs live, Langfuse traces, cost numbers in README
-- [ ] Week 3–4: failure injection + retry/idempotency/circuit-breaker
-- [ ] Week 5–6: 3 merged OSS PRs (LangChain4j / Spring AI / OTel / Langfuse)
-- [ ] Week 7–8: caregiver-copilot thin slice on this harness
